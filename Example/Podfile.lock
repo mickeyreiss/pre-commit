@@ -1,0 +1,14 @@
+PODS:
+  - pre-commit (0.1.0)
+
+DEPENDENCIES:
+  - pre-commit (from `../pre-commit.podspec`)
+
+EXTERNAL SOURCES:
+  pre-commit:
+    :path: ../pre-commit.podspec
+
+SPEC CHECKSUMS:
+  pre-commit: 59474bd5fe02f8572337c03430911df718e0c283
+
+COCOAPODS: 0.29.0

@@ -1,36 +1,39 @@
-#
-# Be sure to run `pod spec lint NAME.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# To learn more about the attributes see http://docs.cocoapods.org/specification.html
-#
 Pod::Spec.new do |s|
   s.name         = "pre-commit"
   s.version      = "0.1.0"
-  s.summary      = "A short description of pre-commit."
+  s.summary      = "Automatically install a git pre-commit hook."
   s.description  = <<-DESC
-                    An optional longer description of pre-commit
+                    Automatically install a pre-commit hook from your working directory.
 
-                    * Markdown format.
-                    * Don't worry about the indent, we strip it!
+                    * Ensure that code is always linted and tested before checking it in.
+                    * Save your pre-commit hook in .hooks/pre-commit
+                    * Use the usual git operations, forget about that pesky Cmd-U, rake or xctool.
+                    * When sharing code, new team members automatically get the pre-commit hooks.
                    DESC
-  s.homepage     = "http://EXAMPLE/NAME"
-  s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage     = "http://mickeyreiss.github.io/pre-commit"
   s.license      = 'MIT'
-  s.author       = { "Mickey Reiss" => "mickey@venmo.com" }
-  s.source       = { :git => "http://EXAMPLE/NAME.git", :tag => s.version.to_s }
+  s.author       = { "Mickey Reiss" => "mickeyreiss@gmail.com" }
+  s.source       = { :git => "http://github.com/mickeyreiss/pre-commit.git", :tag => s.version.to_s }
 
-  # s.platform     = :ios, '5.0'
-  # s.ios.deployment_target = '5.0'
-  # s.osx.deployment_target = '10.7'
   s.requires_arc = true
 
-  s.source_files = 'Classes'
-  s.resources = 'Assets'
+  s.source_files = ''
 
-  s.ios.exclude_files = 'Classes/osx'
-  s.osx.exclude_files = 'Classes/ios'
-  # s.public_header_files = 'Classes/**/*.h'
-  # s.frameworks = 'SomeFramework', 'AnotherFramework'
-  # s.dependency 'JSONKit', '~> 1.4'
+  s.prepare_command = <<-CMD
+    GIT_PRECOMMIT_SCRIPT=.git/hooks/pre-commit
+    MY_PRECOMMIT_SCRIPT=.hooks/pre-commit
+    if [[ -f ${GIT_PRECOMMIT_SCRIPT} ]]; then
+      echo "Error: the pre-commit pod will not override the existing pre-commit hook at '${GIT_PRECOMMIT_SCRIPT}'. To fix this, remove the script (\\`rm ${GIT_PRECOMMIT_SCRIPT}\\`) or delete this pod from your Podfile." >&2
+      exit 1
+    elif [[ ! -x ${MY_PRECOMMIT_SCRIPT} ]]; then
+      if [[ -h ${GIT_PRECOMMIT_SCRIPT} ]]; then
+        rm ${GIT_PRECOMMIT_SCRIPT}
+      fi
+      echo "Error: the pre-commit pod expects to find an executable script at '${MY_PRECOMMIT_SCRIPT}', but none was found. To fix this, add the script and make sure it is executable (\\`chmod +x ${MY_PRECOMMIT_SCRIPT}\\`)." >&2
+      exit 2
+    fi
+
+    ln -fs ${MY_PRECOMMIT_SCRIPT} ${GIT_PRECOMMIT_SCRIPT}
+  CMD
 end
+

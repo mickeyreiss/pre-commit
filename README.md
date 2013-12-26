@@ -18,7 +18,7 @@ it simply add the following line to your Podfile:
 
 ## Author
 
-Mickey Reiss, mickey@venmo.com
+Mickey Reiss, mickeyreiss@gmail.com
 
 ## License
 
