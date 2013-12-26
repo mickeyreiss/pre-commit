@@ -1,0 +1,7 @@
+pod "pre-commit", :path => "../pre-commit.podspec"
+
+target "Demo" do
+end
+
+target "DemoTests" do
+end
