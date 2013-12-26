@@ -11,5 +11,6 @@ assert () {
   fi
 }
 
+assert which pod
 assert [[ -f Podfile ]]
 assert "pod --no-integrate --no-repo-update | grep 'executing pre-commit hook'"
