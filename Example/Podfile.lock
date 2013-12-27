@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../pre-commit.podspec
 
 SPEC CHECKSUMS:
-  pre-commit: 59474bd5fe02f8572337c03430911df718e0c283
+  pre-commit: 78eaccf163941a988ef721a8499d8fc31a4fa980
 
 COCOAPODS: 0.29.0

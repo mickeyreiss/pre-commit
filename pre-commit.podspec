@@ -13,11 +13,11 @@ Pod::Spec.new do |s|
   s.homepage     = "http://mickeyreiss.github.io/pre-commit"
   s.license      = 'MIT'
   s.author       = { "Mickey Reiss" => "mickeyreiss@gmail.com" }
-  s.source       = { :git => "http://github.com/mickeyreiss/pre-commit.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/mickeyreiss/pre-commit.git", :tag => s.version.to_s }
 
   s.requires_arc = true
 
-  s.source_files = ''
+  s.source_files = 'Source/Dummy.m'
 
   s.prepare_command = <<-CMD
     GIT_PRECOMMIT_SCRIPT=.git/hooks/pre-commit
@@ -29,8 +29,7 @@ Pod::Spec.new do |s|
       if [[ -h ${GIT_PRECOMMIT_SCRIPT} ]]; then
         rm ${GIT_PRECOMMIT_SCRIPT}
       fi
-      echo "Error: the pre-commit pod expects to find an executable script at '${MY_PRECOMMIT_SCRIPT}', but none was found. To fix this, add the script and make sure it is executable (\\`chmod +x ${MY_PRECOMMIT_SCRIPT}\\`)." >&2
-      exit 2
+      echo "Warning: the pre-commit pod expects to find an executable script at '${MY_PRECOMMIT_SCRIPT}', but none was found. To fix this, add the script and make sure it is executable (\\`chmod +x ${MY_PRECOMMIT_SCRIPT}\\`)." >&2
     fi
 
     ln -fs ${MY_PRECOMMIT_SCRIPT} ${GIT_PRECOMMIT_SCRIPT}
