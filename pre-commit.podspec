@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "pre-commit"
-  s.version      = "0.1.0"
+  s.version      = "0.0.1"
   s.summary      = "Automatically install a git pre-commit hook."
   s.description  = <<-DESC
                     Automatically install a pre-commit hook from your working directory.
